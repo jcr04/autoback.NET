@@ -1,0 +1,6 @@
+@autoback.api_HostAddress = http://localhost:5287
+
+GET {{autoback.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
