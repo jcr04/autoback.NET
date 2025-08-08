@@ -15,7 +15,7 @@ namespace autoback.application.Commands.AdicaoPecas
             if (existente is not null)
                 throw new InvalidOperationException("Já existe peça com esse código.");
 
-            var peca = new Peca(request.Nome, request.Codigo, request.Quantidade, request.Preco);
+            var peca = new Peca(request.Nome, request.Codigo, request.Quantidade, request.Preco, request.CategoriaId, request.FabricanteId);
             await _repo.AddAsync(peca, ct);
             await _repo.SaveChangesAsync(ct);
             return peca.Id;

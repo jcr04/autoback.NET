@@ -4,6 +4,7 @@ using autoback.domain.Interfaces;
 using autoback.infra.Data;
 using autoback.infra.Repositories;
 using FluentValidation;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -21,9 +22,10 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Assem
 builder.Services.AddValidatorsFromAssembly(typeof(AssemblyMarker).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+
 // Repositórios
 builder.Services.AddScoped<IPecaRepository, PecaRepository>();
-
+builder.Services.AddMapster();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

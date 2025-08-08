@@ -16,6 +16,10 @@ namespace autoback.domain.Interfaces;
     Task UpdateAsync(Peca peca, CancellationToken ct);
     Task DeleteAsync(Peca peca, CancellationToken ct);
     Task<bool> SaveChangesAsync(CancellationToken ct);
+
+    Task<Peca?> GetByIdWithRefsAsync(int id, CancellationToken ct);
+    Task<List<Peca>> GetAllPagedAsync(int page, int pageSize, CancellationToken ct);
+    Task<int> CountAsync(CancellationToken ct);
 }
 
 

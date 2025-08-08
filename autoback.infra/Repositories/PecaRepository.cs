@@ -37,5 +37,23 @@ namespace autoback.infra.Repositories
 
         public async Task<bool> SaveChangesAsync(CancellationToken ct) =>
             (await _ctx.SaveChangesAsync(ct)) > 0;
+
+        public Task<List<Peca>> GetAllPagedAsync(int page, int pageSize, CancellationToken ct) =>
+    _ctx.Pecas.AsNoTracking()
+        .Include(p => p.Categoria)
+        .Include(p => p.Fabricante)
+        .OrderBy(p => p.Nome)
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync(ct);
+
+        public Task<int> CountAsync(CancellationToken ct) =>
+            _ctx.Pecas.AsNoTracking().CountAsync(ct);
+
+        public Task<Peca?> GetByIdWithRefsAsync(int id, CancellationToken ct) =>
+            _ctx.Pecas.AsNoTracking()
+                .Include(p => p.Categoria)
+                .Include(p => p.Fabricante)
+                .FirstOrDefaultAsync(p => p.Id == id, ct);
     }
 }
