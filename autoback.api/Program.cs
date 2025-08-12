@@ -1,5 +1,6 @@
 ﻿using autoback.application.Common;
 using autoback.application.Common.Behaviors;
+using autoback.application.Common.Mapping;
 using autoback.domain.Interfaces;
 using autoback.infra.Data;
 using autoback.infra.Repositories;
@@ -22,10 +23,13 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Assem
 builder.Services.AddValidatorsFromAssembly(typeof(AssemblyMarker).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-
 // Repositórios
 builder.Services.AddScoped<IPecaRepository, PecaRepository>();
+
+// Mapster
 builder.Services.AddMapster();
+MapsterConfig.Register();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

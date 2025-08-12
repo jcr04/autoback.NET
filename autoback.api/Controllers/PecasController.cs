@@ -15,13 +15,12 @@ namespace autoback.api.Controllers
         private readonly IMediator _mediator;
         public PecasController(IMediator mediator) => _mediator = mediator;
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll(CancellationToken ct)
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken ct = default)
         {
-            var result = await _mediator.Send(new GetPecasQuery(), ct);
+            var result = await _mediator.Send(new GetPecasPagedQuery(page, pageSize), ct);
             return Ok(result);
         }
-
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id, CancellationToken ct)
@@ -31,10 +30,8 @@ namespace autoback.api.Controllers
             return Ok(peca.Adapt<PecaDto>());
         }
 
-        public record CreatePecaDto(string Nome, string Codigo, int Quantidade, decimal Preco, int CategoriaId, int FabricanteId);
-
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatePecaDto dto, CancellationToken ct)
+        public async Task<IActionResult> Create([FromBody] CreatePecaRequest dto, CancellationToken ct)
         {
             var id = await _mediator.Send(
                 new CreatePecaCommand(dto.Nome, dto.Codigo, dto.Quantidade, dto.Preco, dto.CategoriaId, dto.FabricanteId), ct);
@@ -48,7 +45,7 @@ namespace autoback.api.Controllers
             return ok ? NoContent() : Problem("Falha ao atualizar preço");
         }
 
-        public record MovEstoqueDto(int Quantidade, string Tipo); 
+        public record MovEstoqueDto(int Quantidade, string Tipo);
 
         [HttpPost("{id:int}/estoque")]
         public async Task<IActionResult> MovimentarEstoque(int id, [FromBody] MovEstoqueDto dto, CancellationToken ct)
@@ -61,26 +58,12 @@ namespace autoback.api.Controllers
             return ok ? NoContent() : Problem("Falha ao movimentar estoque");
         }
 
+
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id, CancellationToken ct)
         {
             var ok = await _mediator.Send(new DeletePecaCommand(id), ct);
             return ok ? NoContent() : NotFound();
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> GetPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken ct = default)
-        {
-            var result = await _mediator.Send(new GetPecasPagedQuery(page, pageSize), ct);
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatePecaRequest dto, CancellationToken ct)
-        {
-            var id = await _mediator.Send(new CreatePecaCommand(dto.Nome, dto.Codigo, dto.Quantidade, dto.Preco, dto.CategoriaId, dto.FabricanteId), ct);
-            return CreatedAtAction(nameof(GetById), new { id }, new { id });
         }
     }
 }
