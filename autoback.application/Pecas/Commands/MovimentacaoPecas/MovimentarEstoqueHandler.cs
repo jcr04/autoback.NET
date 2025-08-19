@@ -1,9 +1,8 @@
-﻿using autoback.application.Pecas.Commands;
-using autoback.domain.Interfaces;
+﻿using autoback.domain.Interfaces;
 using MediatR;
-using static autoback.application.Pecas.Commands.MovimentarEstoqueCommand;
+using static autoback.application.Pecas.Commands.MovimentacaoPecas.MovimentarEstoqueCommand;
 
-namespace autoback.application.Commands.MovimentacaoPecas
+namespace autoback.application.Pecas.Commands.MovimentacaoPecas
 {
     public class MovimentarEstoqueHandler : IRequestHandler<MovimentarEstoqueCommand, bool>
     {

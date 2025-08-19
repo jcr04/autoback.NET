@@ -2,7 +2,7 @@
 using autoback.domain.Interfaces;
 using MediatR;
 
-namespace autoback.application.Commands.AdicaoPecas
+namespace autoback.application.Pecas.Commands.AdicaoPecas
 {
     public class CreatePecaHandler : IRequestHandler<CreatePecaCommand, int>
     {

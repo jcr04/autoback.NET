@@ -1,5 +1,5 @@
-﻿using autoback.application.Commands.AdicaoPecas;
-using autoback.application.Pecas.Commands;
+﻿using autoback.application.Pecas.Commands;
+using autoback.application.Pecas.Commands.AdicaoPecas;
 using FluentValidation;
 
 namespace autoback.application.Pecas.Validators

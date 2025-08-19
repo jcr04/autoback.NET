@@ -25,6 +25,8 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 
 // Repositórios
 builder.Services.AddScoped<IPecaRepository, PecaRepository>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IFabricanteRepository, FabricanteRepository>();
 
 // Mapster
 builder.Services.AddMapster();

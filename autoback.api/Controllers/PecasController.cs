@@ -1,5 +1,7 @@
-﻿using autoback.application.Commands.AdicaoPecas;
-using autoback.application.Pecas.Commands;
+﻿using autoback.application.Pecas.Commands.AdicaoPecas;
+using autoback.application.Pecas.Commands.AtualizarPecas;
+using autoback.application.Pecas.Commands.ExcluirPecas;
+using autoback.application.Pecas.Commands.MovimentacaoPecas;
 using autoback.application.Pecas.DTOs;
 using autoback.application.Pecas.Queries;
 using Mapster;

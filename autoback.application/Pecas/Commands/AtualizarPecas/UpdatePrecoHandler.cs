@@ -1,14 +1,14 @@
 ﻿using autoback.domain.Interfaces;
 using MediatR;
 
-namespace autoback.application.Pecas.Handlers
+namespace autoback.application.Pecas.Commands.AtualizarPecas
 {
-    public class UpdatePrecoHandler : IRequestHandler<Commands.UpdatePrecoCommand, bool>
+    public class UpdatePrecoHandler : IRequestHandler<UpdatePrecoCommand, bool>
     {
         private readonly IPecaRepository _repo;
         public UpdatePrecoHandler(IPecaRepository repo) => _repo = repo;
 
-        public async Task<bool> Handle(Commands.UpdatePrecoCommand request, CancellationToken ct)
+        public async Task<bool> Handle(UpdatePrecoCommand request, CancellationToken ct)
         {
             var peca = await _repo.GetByIdAsync(request.Id, ct)
                 ?? throw new KeyNotFoundException("Peça não encontrada.");
